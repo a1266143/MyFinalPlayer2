@@ -1,0 +1,4 @@
+CHANGED,F:\AndroidStudioWorkSpace\MyApplication\PPPPPP\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\android\tools\fd\runtime\AppPatchesLoaderImpl.class
+CHANGED,F:\AndroidStudioWorkSpace\MyApplication\PPPPPP\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\example\service\MainService$1$override.class
+CHANGED,F:\AndroidStudioWorkSpace\MyApplication\PPPPPP\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\example\service\MainService$2$override.class
+CHANGED,F:\AndroidStudioWorkSpace\MyApplication\PPPPPP\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\example\service\MainService$override.class

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/listitem_onlinemusic_selector"
+        tools:ignore="UselessParent" >
+
+    <ImageView
+        android:id="@+id/listitem_fragment_online_category_iv"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:scaleType="fitCenter"
+        tools:ignore="ContentDescription" />
+    
+    <!-- 推荐的三首歌曲 -->
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:layout_toRightOf="@id/listitem_fragment_online_category_iv"
+        android:orientation="vertical">
+        
+        <!-- 第一首歌曲 -->
+        <TextView 
+            android:id="@+id/listitem_fragment_online_category_firstSong"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:textSize="@dimen/categorytextsize"
+            android:layout_weight="1"/>
+        
+        <View 
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#ddd"/>
+        
+        <!-- 第二首歌曲 -->
+        <TextView 
+            android:id="@+id/listitem_fragment_online_category_secondSong"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:textSize="@dimen/categorytextsize"
+            android:layout_weight="1"/>
+        
+        <View 
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#ddd"/>
+        
+        <!-- 第三首歌曲 -->
+        <TextView 
+            android:id="@+id/listitem_fragment_online_category_thirdSong"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:textSize="@dimen/categorytextsize"
+            android:layout_weight="1"/>
+        
+        
+    </LinearLayout>
+    </RelativeLayout>
+    
+    
+
+</RelativeLayout>

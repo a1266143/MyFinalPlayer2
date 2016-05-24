@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "F:\\AndroidStudioWorkSpace\\MyApplication\\PPPPPP\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\pause.png",
+        "source": "F:\\AndroidStudioWorkSpace\\MyApplication\\PPPPPP\\src\\main\\res\\drawable-xhdpi\\pause.png"
+    },
+    {
+        "merged": "F:\\AndroidStudioWorkSpace\\MyApplication\\PPPPPP\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\appicon.png",
+        "source": "F:\\AndroidStudioWorkSpace\\MyApplication\\PPPPPP\\src\\main\\res\\drawable-xhdpi\\appicon.png"
+    },
+    {
+        "merged": "F:\\AndroidStudioWorkSpace\\MyApplication\\PPPPPP\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\ic_launcher.png",
+        "source": "F:\\AndroidStudioWorkSpace\\MyApplication\\PPPPPP\\src\\main\\res\\drawable-xhdpi\\ic_launcher.png"
+    }
+]

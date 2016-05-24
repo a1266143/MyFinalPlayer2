@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff" >
+
+    <!-- 网络歌曲界面的标题 -->
+
+    <LinearLayout
+        android:id="@+id/fragment_online_lin"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:orientation="horizontal" >
+
+        <!-- 类别 -->
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/category"
+            android:textSize="@dimen/titletextsize"
+            android:background="@android:color/transparent"
+            tools:ignore="ButtonStyle" />
+
+        <!-- 歌手 -->
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/singer"
+            android:textSize="@dimen/titletextsize"
+            android:background="@android:color/transparent"
+            tools:ignore="ButtonStyle" />
+
+    </LinearLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/fragment_online_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/fragment_online_lin" />
+
+</RelativeLayout>

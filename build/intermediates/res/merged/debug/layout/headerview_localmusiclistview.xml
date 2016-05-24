@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/headerview_localmusiclistview_lin"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+
+    <ImageButton
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_gravity="center_vertical"
+        android:background="@android:color/transparent"
+        android:padding="15dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/playbtn"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/headerview_localmusiclistview_playall"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical"
+        android:text="@string/playall" />
+
+</LinearLayout>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#eeeeee"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/fragment_search_titlebar"
+        style="@style/titlebar" >
+
+        <ImageButton
+            android:id="@+id/fragment_search_imagebutton"
+            android:layout_width="58dp"
+            android:layout_height="58dp"
+            android:layout_alignParentRight="true"
+            android:background="@android:color/transparent"
+            android:padding="15dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/searchicon"
+            tools:ignore="ContentDescription" />
+
+        <ImageButton
+            android:id="@+id/fragment_search_back"
+            android:layout_width="58dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:background="@android:color/transparent"
+            android:padding="15dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/back"
+            tools:ignore="ContentDescription" />
+
+        <EditText
+            android:id="@+id/fragment_search_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/fragment_search_imagebutton"
+            android:layout_toRightOf="@id/fragment_search_back"
+            android:hint="@string/searchhint" />
+    </RelativeLayout>
+
+    <!-- titlebar阴影 -->
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_below="@id/fragment_search_titlebar"
+        android:scaleType="fitXY"
+        android:src="@drawable/shadow"
+        tools:ignore="ContentDescription" />
+
+</RelativeLayout>
