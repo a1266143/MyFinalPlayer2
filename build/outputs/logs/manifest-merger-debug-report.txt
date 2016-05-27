@@ -10,7 +10,7 @@ ADDED from F:\AndroidStudioWorkSpace\MyApplication\PPPPPP\src\main\AndroidManife
 		INJECTED from F:\AndroidStudioWorkSpace\MyApplication\PPPPPP\src\main\AndroidManifest.xml
 		INJECTED from F:\AndroidStudioWorkSpace\MyApplication\PPPPPP\src\main\AndroidManifest.xml
 	android:versionName
-		ADDED from F:\AndroidStudioWorkSpace\MyApplication\PPPPPP\src\main\AndroidManifest.xml:6:5-30
+		ADDED from F:\AndroidStudioWorkSpace\MyApplication\PPPPPP\src\main\AndroidManifest.xml:6:5-37
 		INJECTED from F:\AndroidStudioWorkSpace\MyApplication\PPPPPP\src\main\AndroidManifest.xml
 		INJECTED from F:\AndroidStudioWorkSpace\MyApplication\PPPPPP\src\main\AndroidManifest.xml
 	android:versionCode
@@ -19,6 +19,15 @@ ADDED from F:\AndroidStudioWorkSpace\MyApplication\PPPPPP\src\main\AndroidManife
 		INJECTED from F:\AndroidStudioWorkSpace\MyApplication\PPPPPP\src\main\AndroidManifest.xml
 uses-sdk
 ADDED from F:\AndroidStudioWorkSpace\MyApplication\PPPPPP\src\main\AndroidManifest.xml:8:5-10:41
+MERGED from [com.android.support:support-v4:23.2.1] F:\AndroidStudioWorkSpace\MyApplication\PPPPPP\build\intermediates\exploded-aar\com.android.support\support-v4\23.2.1\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:appcompat-v7:23.2.1] F:\AndroidStudioWorkSpace\MyApplication\PPPPPP\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.2.1\AndroidManifest.xml:21:5-23:78
+MERGED from [com.android.support:support-v4:23.2.1] F:\AndroidStudioWorkSpace\MyApplication\PPPPPP\build\intermediates\exploded-aar\com.android.support\support-v4\23.2.1\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:animated-vector-drawable:23.2.1] F:\AndroidStudioWorkSpace\MyApplication\PPPPPP\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\23.2.1\AndroidManifest.xml:5:5-44
+MERGED from [com.android.support:support-vector-drawable:23.2.1] F:\AndroidStudioWorkSpace\MyApplication\PPPPPP\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\23.2.1\AndroidManifest.xml:5:5-43
+MERGED from [com.android.support:support-v4:23.2.1] F:\AndroidStudioWorkSpace\MyApplication\PPPPPP\build\intermediates\exploded-aar\com.android.support\support-v4\23.2.1\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:support-vector-drawable:23.2.1] F:\AndroidStudioWorkSpace\MyApplication\PPPPPP\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\23.2.1\AndroidManifest.xml:5:5-43
+MERGED from [com.android.support:support-v4:23.2.1] F:\AndroidStudioWorkSpace\MyApplication\PPPPPP\build\intermediates\exploded-aar\com.android.support\support-v4\23.2.1\AndroidManifest.xml:20:5-43
+MERGED from [com.github.orangegangsters:swipy:1.2.3] F:\AndroidStudioWorkSpace\MyApplication\PPPPPP\build\intermediates\exploded-aar\com.github.orangegangsters\swipy\1.2.3\AndroidManifest.xml:7:5-9:41
 	android:targetSdkVersion
 		ADDED from F:\AndroidStudioWorkSpace\MyApplication\PPPPPP\src\main\AndroidManifest.xml:10:9-38
 		INJECTED from F:\AndroidStudioWorkSpace\MyApplication\PPPPPP\src\main\AndroidManifest.xml
@@ -27,6 +36,8 @@ ADDED from F:\AndroidStudioWorkSpace\MyApplication\PPPPPP\src\main\AndroidManife
 		ADDED from F:\AndroidStudioWorkSpace\MyApplication\PPPPPP\src\main\AndroidManifest.xml:9:9-35
 		INJECTED from F:\AndroidStudioWorkSpace\MyApplication\PPPPPP\src\main\AndroidManifest.xml
 		INJECTED from F:\AndroidStudioWorkSpace\MyApplication\PPPPPP\src\main\AndroidManifest.xml
+	tools:overrideLibrary
+		ADDED from [com.android.support:appcompat-v7:23.2.1] F:\AndroidStudioWorkSpace\MyApplication\PPPPPP\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.2.1\AndroidManifest.xml:23:9-75
 uses-permission#android.permission.INTERNET
 ADDED from F:\AndroidStudioWorkSpace\MyApplication\PPPPPP\src\main\AndroidManifest.xml:12:5-67
 	android:name
@@ -53,6 +64,15 @@ ADDED from F:\AndroidStudioWorkSpace\MyApplication\PPPPPP\src\main\AndroidManife
 		ADDED from F:\AndroidStudioWorkSpace\MyApplication\PPPPPP\src\main\AndroidManifest.xml:18:30-80
 application
 ADDED from F:\AndroidStudioWorkSpace\MyApplication\PPPPPP\src\main\AndroidManifest.xml:20:5-44:19
+MERGED from [com.android.support:support-v4:23.2.1] F:\AndroidStudioWorkSpace\MyApplication\PPPPPP\build\intermediates\exploded-aar\com.android.support\support-v4\23.2.1\AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:appcompat-v7:23.2.1] F:\AndroidStudioWorkSpace\MyApplication\PPPPPP\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.2.1\AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-v4:23.2.1] F:\AndroidStudioWorkSpace\MyApplication\PPPPPP\build\intermediates\exploded-aar\com.android.support\support-v4\23.2.1\AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:animated-vector-drawable:23.2.1] F:\AndroidStudioWorkSpace\MyApplication\PPPPPP\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\23.2.1\AndroidManifest.xml:7:5-20
+MERGED from [com.android.support:support-vector-drawable:23.2.1] F:\AndroidStudioWorkSpace\MyApplication\PPPPPP\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\23.2.1\AndroidManifest.xml:7:5-20
+MERGED from [com.android.support:support-v4:23.2.1] F:\AndroidStudioWorkSpace\MyApplication\PPPPPP\build\intermediates\exploded-aar\com.android.support\support-v4\23.2.1\AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:support-vector-drawable:23.2.1] F:\AndroidStudioWorkSpace\MyApplication\PPPPPP\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\23.2.1\AndroidManifest.xml:7:5-20
+MERGED from [com.android.support:support-v4:23.2.1] F:\AndroidStudioWorkSpace\MyApplication\PPPPPP\build\intermediates\exploded-aar\com.android.support\support-v4\23.2.1\AndroidManifest.xml:22:5-20
+MERGED from [com.github.orangegangsters:swipy:1.2.3] F:\AndroidStudioWorkSpace\MyApplication\PPPPPP\build\intermediates\exploded-aar\com.github.orangegangsters\swipy\1.2.3\AndroidManifest.xml:11:5-12:19
 	android:label
 		ADDED from F:\AndroidStudioWorkSpace\MyApplication\PPPPPP\src\main\AndroidManifest.xml:24:9-41
 	android:allowBackup

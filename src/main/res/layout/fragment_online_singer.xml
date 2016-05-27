@@ -2,7 +2,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-    
+
+    <com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout
+        android:id="@+id/fragment_online_singer_refreshLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        >
     <!-- 歌手GridView -->
     <GridView 
         android:id="@+id/fragment_online_singer_gridview"
@@ -10,5 +15,7 @@
         android:layout_height="match_parent"
         android:numColumns="3"
         />
+
+    </com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout>
 
 </RelativeLayout>

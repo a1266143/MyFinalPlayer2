@@ -19,7 +19,9 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:support-v4:19.+'
+    compile 'com.android.support:support-v4:23.2.1'
+    compile 'com.android.support:appcompat-v7:23.2.1'
     compile files('libs/glide-3.6.0.jar')
     compile files('libs/Volley.jar')
+    compile 'com.github.orangegangsters:swipy:1.2.3@aar'
 }

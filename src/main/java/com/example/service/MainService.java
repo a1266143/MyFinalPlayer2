@@ -52,6 +52,10 @@ public class MainService extends Service {
 
 	//存储当前正在播放的歌曲bean
 	private CurrentPlaySong mCurrentPlaySong;
+
+
+	//播放模式，默认循环模式
+	private int currentPlayModel = 1;
 	
 	@Override
 	public void onCreate() {
@@ -78,8 +82,10 @@ public class MainService extends Service {
 	public IBinder onBind(Intent intent) {
 		return binder;
 	}
-	
-	//客户端与此服务的接口
+
+	/**
+	 * 客户端与此服务的接口
+	 */
 	public class MyBinder extends Binder{
 		
 		//将此service实例传给客户端
@@ -94,12 +100,26 @@ public class MainService extends Service {
 				mCurrentPlaySong = new CurrentPlaySong("","");
 				return mCurrentPlaySong;
 			}
-
 		}
 		
 		//传递给客户端MediaPlayer对象
 		public MediaPlayer getPlayer(){
 			return mediaPlayer;
+		}
+
+		//获得当前播放的列表类型
+		public boolean getIsLocalMusic(){
+			return isLocalMusicList;
+		}
+
+		//获得网络音乐列表
+		public ArrayList<Song> getOnlineMusicList(){
+			return onlineMusicList;
+		}
+
+		//获得本地音乐列表
+		public ArrayList<LocalMusic> getLocalMusicList(){
+			return localMusicList;
 		}
 	}
 
@@ -121,7 +141,29 @@ public class MainService extends Service {
 		sendBroadCastToUI();
 		//开启前台Service
 		startForgroundService();
+		setListener();
 		return Service.START_REDELIVER_INTENT;
+	}
+
+	/**
+	 * 设置播放完成
+	 */
+	private void setListener(){
+		//设置播放完成监听器
+		mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+			@Override
+			public void onCompletion(MediaPlayer mp) {
+				playNextSong();
+			}
+		});
+
+		//设置缓冲监听器
+		/*mediaPlayer.setOnBufferingUpdateListener(new MediaPlayer.OnBufferingUpdateListener() {
+			@Override
+			public void onBufferingUpdate(MediaPlayer mp, int percent) {
+
+			}
+		});*/
 	}
 
 	/**
@@ -132,7 +174,6 @@ public class MainService extends Service {
 		RemoteViews view = new RemoteViews(getPackageName(),R.layout.notification_layout);
 		Notification notification = new Notification.Builder(this).build();
 		notification.contentView = view;
-
 		//PendingIntent pengdingIntent = PendingIntent.getActivity(this,2,)
 		startForeground(1,notification);
 	}
@@ -151,6 +192,35 @@ public class MainService extends Service {
 			e.printStackTrace();
 		}
 	}
+
+	/**
+	 * 播放下一曲
+	 */
+	public void playNextSong(){
+		if(isLocalMusicList){
+			if(position == (localMusicList.size()-1)){
+				position = 0;
+			}else{
+				position++;
+			}
+			playLocalMusic();
+			sendBroadCastToUI();
+		}else{
+			if(position == (onlineMusicList.size()-1)){
+				position = 0;
+			}else{
+				position++;
+			}
+			if(onlineMusicList.size()!=0){
+				getOnlineMusicInfo(onlineMusicList.get(position).getSongid());
+				sendBroadCastToUI();
+				position = 0;
+			}
+
+		}
+	}
+
+
 
 	/**
 	 * 获得网络歌曲相关信息
@@ -239,10 +309,30 @@ public class MainService extends Service {
 		queue.cancelAll(null);
 	}
 
+	public boolean getIsLocalMusicList(){
+		return isLocalMusicList;
+	}
+
+	public ArrayList<LocalMusic> getLocalMusicList(){
+		return localMusicList;
+	}
+
+	public ArrayList<Song> getOnlineMusicList(){
+		return onlineMusicList;
+	}
+
+	public int getPosition(){
+		return position;
+	}
+
 	public static final String ACTION_CHANGEUI = "changeUI";
 	//具体页面的url
 	public static final String URL = "http://music.baidu.com/data/music/links?songIds=";
 
 
+	//播放模式旗标
+	private static final int PLAYBACK = 1;
+	private static final int SHUFFLE = 2;
+	private static final int SINGLELOOP = 3;
 
 }

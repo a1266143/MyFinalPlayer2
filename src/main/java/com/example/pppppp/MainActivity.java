@@ -20,14 +20,14 @@ import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.adapter.FragmentLocalListAdapter.MenuClick;
 import com.example.adapter.MyFragmentPagerAdapter;
-import com.example.application.MyApplication;
 import com.example.bean.CurrentPlaySong;
 import com.example.bean.LocalMusic;
+import com.example.bean.Song;
 import com.example.fragment.DialogFragment_Menu;
+import com.example.fragment.Fragment_List;
 import com.example.fragment.Fragment_Local;
 import com.example.fragment.Fragment_Online;
 import com.example.fragment.Fragment_Search;
@@ -51,6 +51,16 @@ public class MainActivity extends BaseActivity implements OnClickListener,MenuCl
 	public static final String BACKSTACK = "MyBackStack";
 
 	private MyReceiver receiver;
+
+	private MediaPlayer player;
+
+	private CurrentPlaySong song;
+
+	private boolean isLocalMusic;
+
+	private ArrayList<LocalMusic> localMusicList;
+
+	private ArrayList<Song> onlineMusicList;
 
 	/**
 	 * 广播接收器，负责接收从Service传递过来的值
@@ -103,15 +113,38 @@ public class MainActivity extends BaseActivity implements OnClickListener,MenuCl
 
 			@Override
 			public void onServiceConnected(ComponentName arg0, IBinder ibinder) {
+				init(ibinder);
+				setState(song.getSongName(),song.getAuthor(),player);
+			}
+
+			/**
+			 * 在bindService成功的时候初始化各个变量
+			 * @param ibinder
+             */
+			private void init(IBinder ibinder){
 				//获取从service传过来的binder对象
 				myBinder = (MainService.MyBinder) ibinder;
-				CurrentPlaySong song = myBinder.getCurrentSong();
-				MediaPlayer player = myBinder.getPlayer();
-				setState(song.getSongName(),song.getAuthor(),player);
+				song = myBinder.getCurrentSong();
+				player = myBinder.getPlayer();
+				isLocalMusic = myBinder.getIsLocalMusic();
+				if(isLocalMusic){
+					localMusicList = myBinder.getLocalMusicList();
+				}else{
+					onlineMusicList = myBinder.getOnlineMusicList();
+				}
 			}
 		};
 		// 绑定服务
 		bindService(service, conn, Context.BIND_AUTO_CREATE);
+	}
+
+	/**
+	 * 获得当前和Service绑定的Activity的binder
+	 * 主要是给Fragment，不需要让Fragment再绑定一次
+	 * @return
+     */
+	public MainService.MyBinder getMyBinder(){
+		return myBinder;
 	}
 
 	/**
@@ -154,7 +187,6 @@ public class MainActivity extends BaseActivity implements OnClickListener,MenuCl
 		localmusicBtn.setOnClickListener(this);
 		onlineMusicBtn.setOnClickListener(this);
 		bottombar.setOnClickListener(this);
-		//设置viewpager的适配器
 		mViewPager.setAdapter(adapter);
 		mViewPager.setOnPageChangeListener(new MyPageChangeListener(this,localmusicBtn,onlineMusicBtn));
 	}
@@ -178,21 +210,49 @@ public class MainActivity extends BaseActivity implements OnClickListener,MenuCl
 			break;
 			//列表按钮
 		case R.id.activity_main_listbtn:
-			Utils.showToast(this, "你点击了列表按钮");
+			clickListBtn();
 			break;
 			//播放按钮
 		case R.id.activity_main_playbtn:
-			Utils.showToast(this, "你点击了播放按钮");
+			clickPlayBtn();
 			break;
 			//下一首按钮
 		case R.id.activity_main_nextsong:
-			Utils.showToast(this, "你点击了下一首按钮");
+			clickNextBtn();
 			break;
 
 		case R.id.activity_main_bottombar_re:
 			Intent i = new Intent(this,PlayActivity.class);
 			startActivity(i);
 			break;
+		}
+	}
+
+	/**
+	 * 点击下一首按钮
+	 */
+	private void clickNextBtn(){
+		myBinder.getService().playNextSong();
+	}
+
+	/**
+	 * 点击列表按钮
+	 */
+	private void clickListBtn(){
+		if(!Fragment_List.isOpen)
+			beginTransaction(R.id.activity_main_frameLayout,Fragment_List.newInstance(isLocalMusic,localMusicList,onlineMusicList));
+	}
+
+	/**
+	 * 点击播放按钮
+	 */
+	private void clickPlayBtn(){
+		if(player.isPlaying()){
+			player.pause();
+			playBtn.setImageResource(R.drawable.playbtn);
+		}else{
+			player.start();
+			playBtn.setImageResource(R.drawable.pause);
 		}
 	}
 	
@@ -230,10 +290,19 @@ public class MainActivity extends BaseActivity implements OnClickListener,MenuCl
 	 * 搜索界面
 	 */ 
 	public void goToSearch(){
-		FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-		transaction.replace(R.id.activity_main_frameLayout, new Fragment_Search());
+		beginTransaction(R.id.activity_main_frameLayout,new Fragment_Search());
+	}
+
+	/**
+	 * 开始Fragment事物
+	 * @param layout
+	 * @param fragment
+     */
+	private void beginTransaction(int layout,Fragment fragment){
+		FragmentTransaction transaction = this.getSupportFragmentManager().beginTransaction();
+		transaction.add(layout,fragment);
 		transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-		transaction.addToBackStack(BACKSTACK);
+		transaction.addToBackStack(MainActivity.BACKSTACK);
 		transaction.commit();
 	}
 
@@ -253,7 +322,6 @@ public class MainActivity extends BaseActivity implements OnClickListener,MenuCl
 			unbindService(conn);
 			conn = null;
 		}
-
 		unregisterReceiver(receiver);
 	}
 	

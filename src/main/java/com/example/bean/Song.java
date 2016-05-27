@@ -9,14 +9,14 @@ public class Song extends SuperSong{
 	//根据tinguid获取歌手歌曲
 	private String tinguid;
 	//歌手头像图片地址
-	private String headImage;
+	//private String headImage;
 	
-	public String getHeadImage() {
+	/*public String getHeadImage() {
 		return headImage;
 	}
 	public void setHeadImage(String headImage) {
 		this.headImage = headImage;
-	}
+	}*/
 	public String getArtistid() {
 		return artistid;
 	}
@@ -47,6 +47,4 @@ public class Song extends SuperSong{
 	public void setAuthor(String author) {
 		this.author = author;
 	}
-	
-	
 }

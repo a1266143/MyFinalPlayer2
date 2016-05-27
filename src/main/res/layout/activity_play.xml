@@ -10,7 +10,8 @@
         android:id="@+id/activity_play_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop"/>
+        android:scaleType="centerCrop"
+        />
 
     <!-- 主布局 -->
     <RelativeLayout
@@ -21,6 +22,7 @@
 
         <!-- titlebar -->
         <RelativeLayout
+            android:id="@+id/activity_play_title"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             >
@@ -71,6 +73,37 @@
 
 
         <!-- 底栏 -->
+        <RelativeLayout
+            android:id="@+id/activity_play_bottombar"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_alignParentBottom="true">
+
+
+
+        </RelativeLayout>
+
+        <!-- 中部 -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/activity_play_title"
+            android:layout_above="@id/activity_play_bottombar">
+
+
+
+
+            <!-- 真实图片 -->
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_launcher"
+                />
+
+
+        </FrameLayout>
 
 
     </RelativeLayout>

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#eeeeee"
+    android:background="#ffffff"
     android:orientation="vertical" >
 
     <RelativeLayout
@@ -36,14 +36,22 @@
             android:id="@+id/fragment_search_edittext"
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:singleLine="true"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@id/fragment_search_imagebutton"
             android:layout_toRightOf="@id/fragment_search_back"
             android:hint="@string/searchhint" />
     </RelativeLayout>
 
-    <!-- titlebar阴影 -->
 
+
+    <ListView
+        android:id="@+id/fragment_search_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/fragment_search_titlebar"/>
+
+    <!-- titlebar阴影 -->
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="3dp"

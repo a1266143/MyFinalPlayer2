@@ -175,7 +175,7 @@ public class AnaJson {
 				song.setTitle(jo.getString("title"));
 				song.setTinguid(jo.getString("ting_uid"));
 				song.setAuthor(jo.getString("author"));
-				song.setHeadImage("pic_big");
+				//song.setHeadImage("pic_big");
 				arr.add(song);
 			}
 			return arr;
@@ -183,5 +183,37 @@ public class AnaJson {
 			e.printStackTrace();
 			return null;
 		}
+	}
+
+	/**
+	 * 解析搜索的歌曲的json
+	 */
+	public static ArrayList<Song> anaSearchSong(JSONObject object){
+		ArrayList<Song> list = null;
+		try {
+			int error_code = object.getInt("error_code");
+			if(error_code == 22000){
+				list = new ArrayList<>();
+				JSONObject result = object.getJSONObject("result");
+				JSONObject song_info = result.getJSONObject("song_info");
+				JSONArray song_list = song_info.getJSONArray("song_list");
+				for(int i=0;i<song_list.length();i++){
+					Song song = new Song();
+					JSONObject songObject = song_list.getJSONObject(i);
+					song.setTitle(songObject.getString("title"));
+					song.setAuthor(songObject.getString("author"));
+					song.setSongid(songObject.getString("song_id"));
+					song.setTinguid(songObject.getString("ting_uid"));
+					song.setArtistid(songObject.getString("artist_id"));
+					list.add(song);
+				}
+				return list;
+			}else{
+				return null;
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return list;
 	}
 }

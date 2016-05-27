@@ -109,7 +109,6 @@ public class Fragment_Online_Category extends BaseFragment {
 	}
 
 	@Override
-
 	public View onCreateView(LayoutInflater inflater,
 			 ViewGroup container,  Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.fragment_online_category, null);
@@ -239,7 +238,7 @@ public class Fragment_Online_Category extends BaseFragment {
 				.newInstance(objj);
 		FragmentTransaction tran = getActivity().getSupportFragmentManager()
 				.beginTransaction();
-		tran.replace(R.id.activity_main_frameLayout2, f);
+		tran.add(R.id.activity_main_frameLayout, f);
 		tran.addToBackStack(MainActivity.BACKSTACK);
 		tran.commit();
 	}

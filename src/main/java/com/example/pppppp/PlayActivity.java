@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -23,6 +24,7 @@ public class PlayActivity extends Activity {
 
     private RelativeLayout parentRelativeLayout;
     private ImageView backgroundImage;
+    private ImageButton backBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,15 +32,26 @@ public class PlayActivity extends Activity {
         setTran();
         setContentView(R.layout.activity_play);
         findview();
+        setListener();
     }
 
     private void findview(){
         parentRelativeLayout = (RelativeLayout) findViewById(R.id.activity_play_re);
         backgroundImage = (ImageView) findViewById(R.id.activity_play_image);
+        backBtn = (ImageButton) findViewById(R.id.activity_play_back);
         //设置margintop
         FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) parentRelativeLayout.getLayoutParams();
         params.topMargin = Utils.getStatusBarHeight();
         parentRelativeLayout.setLayoutParams(params);
+    }
+
+    private void setListener(){
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PlayActivity.this.finish();
+            }
+        });
     }
 
 

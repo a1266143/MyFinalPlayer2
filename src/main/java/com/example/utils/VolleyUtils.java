@@ -27,7 +27,7 @@ public class VolleyUtils {
      * 加入队列
      */
     public void newRequest(String url, final OnResponseListener listener){
-        //queue.cancelAll(context);
+        queue.cancelAll(context);
         JsonObjectRequest request = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject jsonObject) {
