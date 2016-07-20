@@ -1,9 +1,11 @@
 package com.example.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by 李晓军 on 2016/5/24.
  */
-public class CurrentOnlineSong {
+public class CurrentOnlineSong implements Serializable{
     private String songName;
     private String artistName;
     private String songPicRadio;

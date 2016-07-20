@@ -72,12 +72,12 @@
         "source": "F:\\AndroidStudioWorkSpace\\MyApplication\\PPPPPP\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.2.1\\res\\layout\\abc_activity_chooser_view.xml"
     },
     {
-        "merged": "F:\\AndroidStudioWorkSpace\\MyApplication\\PPPPPP\\build\\intermediates\\res\\merged\\debug\\layout\\abc_search_view.xml",
-        "source": "F:\\AndroidStudioWorkSpace\\MyApplication\\PPPPPP\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.2.1\\res\\layout\\abc_search_view.xml"
-    },
-    {
         "merged": "F:\\AndroidStudioWorkSpace\\MyApplication\\PPPPPP\\build\\intermediates\\res\\merged\\debug\\layout\\fragment__singer.xml",
         "source": "F:\\AndroidStudioWorkSpace\\MyApplication\\PPPPPP\\src\\main\\res\\layout\\fragment__singer.xml"
+    },
+    {
+        "merged": "F:\\AndroidStudioWorkSpace\\MyApplication\\PPPPPP\\build\\intermediates\\res\\merged\\debug\\layout\\abc_search_view.xml",
+        "source": "F:\\AndroidStudioWorkSpace\\MyApplication\\PPPPPP\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.2.1\\res\\layout\\abc_search_view.xml"
     },
     {
         "merged": "F:\\AndroidStudioWorkSpace\\MyApplication\\PPPPPP\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_search.xml",

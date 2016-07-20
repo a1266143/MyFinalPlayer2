@@ -36,7 +36,7 @@ public class MainService extends Service {
 	//音乐播放对象
 	private MediaPlayer mediaPlayer;
 	//当前播放的列表类型，本地列表和网络歌曲列表
-	private boolean isLocalMusicList;
+	private boolean isLocalMusicList = true;
 	//当前播放的position
 	private int position;
 	//本地音乐列表
@@ -121,6 +121,13 @@ public class MainService extends Service {
 		public ArrayList<LocalMusic> getLocalMusicList(){
 			return localMusicList;
 		}
+
+		//返回当前播放的网络歌曲
+		public CurrentOnlineSong getCurrentOnlineSong(){
+			if(currentOnlineSong!=null)
+				return currentOnlineSong;
+			return null;
+		}
 	}
 
 	@Override
@@ -134,11 +141,12 @@ public class MainService extends Service {
 		if(isLocalMusicList){
 			localMusicList = (ArrayList<LocalMusic>) bundle.getSerializable("List");
 			playLocalMusic();
+			sendBroadCastToUI();
 		}else{
 			onlineMusicList = (ArrayList<Song>) bundle.getSerializable("List");
 			getOnlineMusicInfo(onlineMusicList.get(position).getSongid());
 		}
-		sendBroadCastToUI();
+
 		//开启前台Service
 		startForgroundService();
 		setListener();
@@ -213,8 +221,6 @@ public class MainService extends Service {
 			}
 			if(onlineMusicList.size()!=0){
 				getOnlineMusicInfo(onlineMusicList.get(position).getSongid());
-				sendBroadCastToUI();
-				position = 0;
 			}
 
 		}
@@ -235,10 +241,11 @@ public class MainService extends Service {
 					JSONObject object = jsonObject.getJSONObject("data");
 					JSONArray array = object.getJSONArray("songList");
 					JSONObject object1 = array.getJSONObject(0);
-					currentOnlineSong = new CurrentOnlineSong(object1.getString("songName"),object1.getString("artistName"),object1.getString("songPicRadio"),object1.getString("lrcLink"),
+					currentOnlineSong = new CurrentOnlineSong(object1.optString("songName"),object1.optString("artistName"),object1.optString("songPicRadio"),object1.optString("lrcLink"),
 							object1.getString("songLink"));
 					//播放网络音乐
 					playOnlineMusic(currentOnlineSong.getSongLink());
+					sendBroadCastToUI();
 				} catch (JSONException e) {
 					e.printStackTrace();
 					return;
@@ -290,9 +297,12 @@ public class MainService extends Service {
 		if(isLocalMusicList){
 			b.putString("title",localMusicList.get(position).getSongName());
 			b.putString("author",localMusicList.get(position).getAuthor());
+			b.putBoolean("isLocalMusic",true);
 		}else{
 			b.putString("title",onlineMusicList.get(position).getTitle());
 			b.putString("author",onlineMusicList.get(position).getAuthor());
+			b.putBoolean("isLocalMusic",false);
+			b.putSerializable("currentOnlineSong",currentOnlineSong);
 		}
 		intent.putExtras(b);
 		intent.setAction(MainService.ACTION_CHANGEUI);

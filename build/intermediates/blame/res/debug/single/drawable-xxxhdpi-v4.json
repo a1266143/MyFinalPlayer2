@@ -164,6 +164,10 @@
         "source": "F:\\AndroidStudioWorkSpace\\MyApplication\\PPPPPP\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.2.1\\res\\drawable-xxxhdpi-v4\\abc_ic_clear_mtrl_alpha.png"
     },
     {
+        "merged": "F:\\AndroidStudioWorkSpace\\MyApplication\\PPPPPP\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi-v4\\timg.jpg",
+        "source": "F:\\AndroidStudioWorkSpace\\MyApplication\\PPPPPP\\src\\main\\res\\drawable-xxxhdpi\\timg.jpg"
+    },
+    {
         "merged": "F:\\AndroidStudioWorkSpace\\MyApplication\\PPPPPP\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi-v4\\localmusic_selected.png",
         "source": "F:\\AndroidStudioWorkSpace\\MyApplication\\PPPPPP\\src\\main\\res\\drawable-xxxhdpi\\localmusic_selected.png"
     },

@@ -3,11 +3,13 @@ package com.example.fragment;
 import java.util.List;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import com.example.adapter.FragmentAlbumAdapter;
 import com.example.bean.Album;
@@ -19,6 +21,7 @@ public class Fragment_Album extends BaseFragment {
 	private List<Album> list;
 	private BaseAdapter adapter;
 	private ListView listview;
+	private ProgressBar pb;
 	
 	private boolean isPrepared;
 	
@@ -33,15 +36,31 @@ public class Fragment_Album extends BaseFragment {
 		return view;
 	}
 
+	Handler handler = new Handler();
 	@Override
 	protected void lazyLoad() {
 		if(!isPrepared||!isFirst||!isVisible)
 			return;
+		pb = (ProgressBar) view.findViewById(R.id.fragment_album_pb);
 		listview = (ListView) view.findViewById(R.id.fragment_album_list);
-		list = musicUtils.getLocalMusicAlbum(getActivity());
-		adapter = new FragmentAlbumAdapter(getActivity(), list);
-		listview.setAdapter(adapter);
-		isFirst = false;
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				list = musicUtils.getLocalMusicAlbum(getActivity());
+				adapter = new FragmentAlbumAdapter(getActivity(), list);
+
+				handler.post(new Runnable() {
+					@Override
+					public void run() {
+						listview.setAdapter(adapter);
+						pb.setVisibility(View.GONE);
+					}
+				});
+				isFirst = false;
+			}
+		}).start();
+
+
 	}
 
 

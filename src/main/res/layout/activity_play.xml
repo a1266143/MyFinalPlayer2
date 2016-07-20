@@ -10,7 +10,8 @@
         android:id="@+id/activity_play_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop"
+        android:scaleType="fitXY"
+        android:src="@drawable/timg"
         />
 
     <!-- 主布局 -->
@@ -99,7 +100,6 @@
                 android:layout_height="150dp"
                 android:layout_gravity="center"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_launcher"
                 />
 
 

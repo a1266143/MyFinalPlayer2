@@ -18,11 +18,14 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.adapter.FragmentLocalListAdapter.MenuClick;
 import com.example.adapter.MyFragmentPagerAdapter;
+import com.example.bean.CurrentOnlineSong;
 import com.example.bean.CurrentPlaySong;
 import com.example.bean.LocalMusic;
 import com.example.bean.Song;
@@ -38,6 +41,7 @@ import com.example.utils.Utils;
 public class MainActivity extends BaseActivity implements OnClickListener,MenuClick {
 
 	private ImageButton searchBtn,listBtn,playBtn,nextSongBtn,localmusicBtn,onlineMusicBtn;
+	private ImageView mHeadImage;
 	private ViewPager mViewPager;
 	private MyFragmentPagerAdapter adapter;
 	private RelativeLayout bottombar;
@@ -62,6 +66,8 @@ public class MainActivity extends BaseActivity implements OnClickListener,MenuCl
 
 	private ArrayList<Song> onlineMusicList;
 
+	private CurrentOnlineSong mCurrentOnlineSong;
+
 	/**
 	 * 广播接收器，负责接收从Service传递过来的值
 	 */
@@ -72,9 +78,17 @@ public class MainActivity extends BaseActivity implements OnClickListener,MenuCl
 			Bundle bundle = intent.getExtras();
 			String title = bundle.getString("title");
 			String author = bundle.getString("author");
+			isLocalMusic = bundle.getBoolean("isLocalMusic");
 			tv_title.setText(title);
 			tv_author.setText(author);
 			playBtn.setImageResource(R.drawable.pause);
+			if(!isLocalMusic){
+				mCurrentOnlineSong = (CurrentOnlineSong) bundle.getSerializable("currentOnlineSong");
+				Glide.with(MainActivity.this).load(mCurrentOnlineSong.getSongPicRadio()).into(mHeadImage);
+			}else{
+				mHeadImage.setImageResource(R.drawable.headimage);
+			}
+
 		}
 	}
 	
@@ -131,6 +145,7 @@ public class MainActivity extends BaseActivity implements OnClickListener,MenuCl
 					localMusicList = myBinder.getLocalMusicList();
 				}else{
 					onlineMusicList = myBinder.getOnlineMusicList();
+					mCurrentOnlineSong = myBinder.getCurrentOnlineSong();
 				}
 			}
 		};
@@ -159,6 +174,9 @@ public class MainActivity extends BaseActivity implements OnClickListener,MenuCl
 			playBtn.setImageResource(R.drawable.pause);
 		else
 			playBtn.setImageResource(R.drawable.playbtn);
+		if(!isLocalMusic){
+			Glide.with(this).load(mCurrentOnlineSong.getSongPicRadio()).into(mHeadImage);
+		}
 	}
 
 
@@ -175,6 +193,7 @@ public class MainActivity extends BaseActivity implements OnClickListener,MenuCl
 		onlineMusicBtn = (ImageButton) findViewById(R.id.activity_main_onlinemusicbtn);
 		tv_title = (TextView) findViewById(R.id.activity_main_songname);
 		tv_author = (TextView) findViewById(R.id.activity_main_authorname);
+		mHeadImage = (ImageView) findViewById(R.id.activity_main_headimage);
 	}
 
 	@SuppressWarnings("deprecation")
@@ -301,7 +320,7 @@ public class MainActivity extends BaseActivity implements OnClickListener,MenuCl
 	private void beginTransaction(int layout,Fragment fragment){
 		FragmentTransaction transaction = this.getSupportFragmentManager().beginTransaction();
 		transaction.add(layout,fragment);
-		transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+		transaction = transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
 		transaction.addToBackStack(MainActivity.BACKSTACK);
 		transaction.commit();
 	}

@@ -1,8 +1,0 @@
-CHANGED,F:\AndroidStudioWorkSpace\MyApplication\PPPPPP\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\android\tools\fd\runtime\AppPatchesLoaderImpl.class
-CHANGED,F:\AndroidStudioWorkSpace\MyApplication\PPPPPP\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\example\fragment\Fragment_Online_Singer$4$override.class
-CHANGED,F:\AndroidStudioWorkSpace\MyApplication\PPPPPP\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\example\fragment\Fragment_Online_Singer$1$override.class
-CHANGED,F:\AndroidStudioWorkSpace\MyApplication\PPPPPP\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\example\fragment\Fragment_Online_Singer$2$override.class
-CHANGED,F:\AndroidStudioWorkSpace\MyApplication\PPPPPP\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\example\fragment\Fragment_Online_Singer$3$override.class
-CHANGED,F:\AndroidStudioWorkSpace\MyApplication\PPPPPP\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\example\fragment\Fragment_Online_Singer$5$override.class
-CHANGED,F:\AndroidStudioWorkSpace\MyApplication\PPPPPP\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\example\fragment\Fragment_Online_Singer$override.class
-CHANGED,F:\AndroidStudioWorkSpace\MyApplication\PPPPPP\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\example\fragment\Fragment_Online_Singer$6$override.class

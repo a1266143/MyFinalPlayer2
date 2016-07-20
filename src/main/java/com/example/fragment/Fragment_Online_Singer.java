@@ -21,6 +21,7 @@ import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
@@ -29,12 +30,14 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 public class Fragment_Online_Singer extends BaseFragment {
 
 	private boolean isPrepared;
-	
+
+	private ProgressBar pb;
 	private GridView gridview;
 	private BaseAdapter adapter;
 	private int offset = 0;
@@ -42,6 +45,7 @@ public class Fragment_Online_Singer extends BaseFragment {
 	private String url = "http://tingapi.ting.baidu.com/v1/restserver/ting?from=android&version=2.4.0&method=baidu.ting.artist.get72HotArtist&format=json&order=1&offset=";
 	private RequestQueue queue;
 
+	private Handler handler = new Handler();
 	//下拉菜单
 	private com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout mSwipyRefreshLayout;
 
@@ -59,6 +63,7 @@ public class Fragment_Online_Singer extends BaseFragment {
 	//找view
 	private void findviewsetadapter(View view){
 		gridview = (GridView) view.findViewById(R.id.fragment_online_singer_gridview);
+		pb = (ProgressBar) view.findViewById(R.id.fragment_online_singer_pb);
 		MyApplication application = (MyApplication) getActivity().getApplication();
 		queue = application.getRequestQueue();
 		mSwipyRefreshLayout = (SwipyRefreshLayout) view.findViewById(R.id.fragment_online_singer_refreshLayout);
@@ -96,7 +101,6 @@ public class Fragment_Online_Singer extends BaseFragment {
 	 */
 	private void upPullAction(){
 		offset = offset + 50;
-		limit = limit +50;
 		loadMore();
 	}
 
@@ -141,6 +145,13 @@ public class Fragment_Online_Singer extends BaseFragment {
 				setListener();
 				if(mSwipyRefreshLayout.isRefreshing())
 					mSwipyRefreshLayout.setRefreshing(false);
+				handler.post(new Runnable() {
+					@Override
+					public void run() {
+						pb.setVisibility(View.GONE);
+					}
+				});
+
 			}
 		}, new Response.ErrorListener() {
 
