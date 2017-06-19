@@ -1,11 +1,12 @@
-package com.example.pppppp;
+package com.example.Activity;
 
 import android.annotation.TargetApi;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.Window;
 import android.view.WindowManager;
+
+import com.example.utils.Utils;
 
 /**
  * 基础Activity
@@ -15,13 +16,14 @@ public abstract class BaseActivity extends FragmentActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Utils.setTran(this);
 		setContentView();
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+		/*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 			setTranslucentStatus(true);
 		}
 		SystemBarTintManager tintManager = new SystemBarTintManager(this);
 		tintManager.setStatusBarTintEnabled(true);
-		tintManager.setStatusBarTintResource(getColor());
+		tintManager.setStatusBarTintResource(getColor());*/
 		init();
 		findview();
 		setListener();

@@ -1,4 +1,4 @@
-package com.example.pppppp;
+package com.example.Activity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +37,7 @@ import com.example.fragment.Fragment_Search;
 import com.example.listener.MyPageChangeListener;
 import com.example.service.MainService;
 import com.example.utils.Utils;
+import com.kogitune.activity_transition.ActivityTransitionLauncher;
 
 public class MainActivity extends BaseActivity implements OnClickListener,MenuClick {
 
@@ -85,6 +86,7 @@ public class MainActivity extends BaseActivity implements OnClickListener,MenuCl
 			if(!isLocalMusic){
 				mCurrentOnlineSong = (CurrentOnlineSong) bundle.getSerializable("currentOnlineSong");
 				Glide.with(MainActivity.this).load(mCurrentOnlineSong.getSongPicRadio()).into(mHeadImage);
+                PlayActivity.SONG_IMAGE = mCurrentOnlineSong.getSongPicRadio();
 			}else{
 				mHeadImage.setImageResource(R.drawable.headimage);
 			}
@@ -242,7 +244,7 @@ public class MainActivity extends BaseActivity implements OnClickListener,MenuCl
 
 		case R.id.activity_main_bottombar_re:
 			Intent i = new Intent(this,PlayActivity.class);
-			startActivity(i);
+			ActivityTransitionLauncher.with(MainActivity.this).from(mHeadImage).launch(i);
 			break;
 		}
 	}
