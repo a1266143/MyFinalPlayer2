@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.bumptech.glide.Glide;
 import com.example.bean.Singer;
-import com.example.pppppp.R;
+import com.example.Activity.R;
 
 import android.content.Context;
 import android.view.LayoutInflater;

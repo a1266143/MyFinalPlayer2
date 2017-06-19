@@ -1,18 +1,10 @@
 package com.example.fragment;
 
-import android.app.Service;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.graphics.Color;
-import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,13 +17,11 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.bean.CurrentPlaySong;
 import com.example.bean.LocalMusic;
 import com.example.bean.Song;
-import com.example.pppppp.MainActivity;
-import com.example.pppppp.R;
+import com.example.Activity.MainActivity;
+import com.example.Activity.R;
 import com.example.service.MainService;
-import com.example.utils.Utils;
 
 import java.util.ArrayList;
 

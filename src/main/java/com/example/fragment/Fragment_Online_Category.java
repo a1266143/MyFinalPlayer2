@@ -11,8 +11,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.example.adapter.FragmentOnlineCategoryAdapter;
 import com.example.application.MyApplication;
 import com.example.bean.MyObject;
-import com.example.pppppp.MainActivity;
-import com.example.pppppp.R;
+import com.example.Activity.MainActivity;
+import com.example.Activity.R;
 import com.example.proxy.AnaJson;
 import com.example.utils.Utils;
 

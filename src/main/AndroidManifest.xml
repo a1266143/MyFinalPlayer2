@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.pppppp"
+    package="com.example.Activity"
     android:versionCode="1"
     android:versionName="1.0.1 beta">
 
@@ -24,7 +24,7 @@
         android:label="@string/app_name"
         android:theme="@android:style/Theme.DeviceDefault.Light.NoActionBar">
         <activity
-            android:name=".MainActivity"
+            android:name="com.example.Activity.MainActivity"
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
@@ -40,7 +40,7 @@
 
         <service android:name="com.example.service.MainService" />
 
-        <activity android:name=".PlayActivity"></activity>
+        <activity android:name="com.example.Activity.PlayActivity"></activity>
     </application>
 
 </manifest>

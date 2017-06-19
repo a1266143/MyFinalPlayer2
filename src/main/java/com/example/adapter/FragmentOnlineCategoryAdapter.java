@@ -3,7 +3,7 @@ package com.example.adapter;
 import java.util.HashMap;
 import java.util.List;
 
-import com.example.pppppp.R;
+import com.example.Activity.R;
 
 import android.content.Context;
 import android.view.LayoutInflater;

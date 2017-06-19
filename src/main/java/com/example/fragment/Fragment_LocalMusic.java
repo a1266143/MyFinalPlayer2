@@ -1,15 +1,14 @@
 package com.example.fragment;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import com.example.adapter.FragmentLocalListAdapter;
 import com.example.bean.LocalMusic;
-import com.example.pppppp.MainActivity;
-import com.example.pppppp.R;
+import com.example.Activity.MainActivity;
+import com.example.Activity.PlayActivity;
+import com.example.Activity.R;
 import com.example.service.MainService;
 import com.example.utils.LocalMusicUtils;
-import com.example.utils.Utils;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -86,6 +85,7 @@ public class Fragment_LocalMusic extends BaseFragment {
 				bundle.putInt("position",position-1);
 				intent.putExtras(bundle);
 				getActivity().startService(intent);
+				PlayActivity.SONG_IMAGE = "";
 			}
 		});
 	}

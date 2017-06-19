@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.example.adapter.FragmentLocalAdapter;
-import com.example.pppppp.MainActivity;
-import com.example.pppppp.R;
+import com.example.Activity.MainActivity;
+import com.example.Activity.R;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

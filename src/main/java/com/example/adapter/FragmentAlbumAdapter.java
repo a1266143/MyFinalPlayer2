@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.bean.Album;
-import com.example.pppppp.R;
+import com.example.Activity.R;
 
 public class FragmentAlbumAdapter extends BaseAdapter {
 

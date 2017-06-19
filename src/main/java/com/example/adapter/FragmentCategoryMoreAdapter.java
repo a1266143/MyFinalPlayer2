@@ -3,7 +3,7 @@ package com.example.adapter;
 import java.util.List;
 
 import com.example.bean.Song;
-import com.example.pppppp.R;
+import com.example.Activity.R;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class FragmentCategoryMoreAdapter extends BaseAdapter {
 

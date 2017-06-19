@@ -1,7 +1,6 @@
 package com.example.fragment;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -11,18 +10,14 @@ import com.android.volley.toolbox.StringRequest;
 import com.example.adapter.FragmentOnlineSingerAdapter;
 import com.example.application.MyApplication;
 import com.example.bean.Singer;
-import com.example.listener.MyScrollListener;
-import com.example.pppppp.MainActivity;
-import com.example.pppppp.R;
+import com.example.Activity.R;
 import com.example.proxy.AnaJson;
 import com.example.utils.Utils;
-import com.example.utils.VolleyUtils;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,7 +26,6 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 public class Fragment_Online_Singer extends BaseFragment {
 

@@ -13,7 +13,7 @@ import android.widget.ProgressBar;
 
 import com.example.adapter.FragmentAlbumAdapter;
 import com.example.bean.Album;
-import com.example.pppppp.R;
+import com.example.Activity.R;
 import com.example.utils.LocalMusicUtils;
 
 public class Fragment_Album extends BaseFragment {

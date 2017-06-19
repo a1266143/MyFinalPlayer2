@@ -17,7 +17,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.adapter.DialogFragmentMenuAdapter;
-import com.example.pppppp.R;
+import com.example.Activity.R;
 
 public class DialogFragment_Menu extends DialogFragment {
 

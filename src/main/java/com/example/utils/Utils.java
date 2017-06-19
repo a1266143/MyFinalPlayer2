@@ -1,11 +1,13 @@
 package com.example.utils;
 
-import com.example.pppppp.R;
+import com.example.Activity.R;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
@@ -15,6 +17,9 @@ import android.renderscript.RenderScript;
 import android.renderscript.ScriptIntrinsicBlur;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -118,5 +123,29 @@ public class Utils {
 	public static int getStatusBarHeight() {
 		return Resources.getSystem().getDimensionPixelSize(
 				Resources.getSystem().getIdentifier("status_bar_height", "dimen", "android"));
+	}
+
+	/**
+	 * 设置状态栏透明
+	 */
+	public static void setTran(Activity activity){
+		activity.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+			Window window = activity.getWindow();
+			window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
+					| WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+			window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+					| View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+					| View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+			window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+			window.setStatusBarColor(Color.TRANSPARENT);
+			window.setNavigationBarColor(Color.TRANSPARENT);
+		}
+		if(Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) {
+			//透明状态栏
+			activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+			//透明导航栏
+			activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+		}
 	}
 }

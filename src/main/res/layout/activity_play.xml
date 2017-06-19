@@ -3,15 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.pppppp.PlayActivity">
+    tools:context="com.example.Activity.PlayActivity">
 
     <!-- 背景图片 -->
     <ImageView
         android:id="@+id/activity_play_image"
-        android:layout_width="match_parent"
+        android:layout_width="600dp"
         android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:adjustViewBounds="true"
         android:scaleType="fitXY"
-        android:src="@drawable/timg"
         />
 
     <!-- 主布局 -->
@@ -81,8 +82,7 @@
             android:layout_alignParentBottom="true">
 
 
-
-        </RelativeLayout>
+            </RelativeLayout>
 
         <!-- 中部 -->
         <FrameLayout
@@ -107,5 +107,11 @@
 
 
     </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/activity_play_ivHead"
+        android:layout_width="200dp" android:layout_height="200dp"
+        android:layout_gravity="center"
+    />
 
 </FrameLayout>

@@ -1,13 +1,12 @@
 package com.example.fragment;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import com.bumptech.glide.Glide;
 import com.example.adapter.FragmentCategoryMoreAdapter;
 import com.example.bean.MyObject;
 import com.example.bean.Song;
-import com.example.pppppp.R;
+import com.example.Activity.R;
 import com.example.proxy.AnaJson;
 import com.example.service.MainService;
 
@@ -16,7 +15,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;

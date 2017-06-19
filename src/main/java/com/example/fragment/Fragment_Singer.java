@@ -14,14 +14,12 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.example.application.MyApplication;
 import com.example.bean.Singer;
 import com.example.bean.Song;
-import com.example.pppppp.R;
+import com.example.Activity.R;
 import com.example.service.MainService;
 import com.example.utils.VolleyUtils;
 
