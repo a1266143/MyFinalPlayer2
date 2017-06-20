@@ -20,8 +20,8 @@
     <!-- 标题栏 -->
     <style name="titlebar">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">58dp</item>
-        <item name="android:background">#ffffff</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:background">@android:color/transparent</item>
     </style>
     
     <!-- 标题栏的按钮风格 -->

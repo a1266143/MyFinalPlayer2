@@ -18,12 +18,6 @@ public abstract class BaseActivity extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		Utils.setTran(this);
 		setContentView();
-		/*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-			setTranslucentStatus(true);
-		}
-		SystemBarTintManager tintManager = new SystemBarTintManager(this);
-		tintManager.setStatusBarTintEnabled(true);
-		tintManager.setStatusBarTintResource(getColor());*/
 		init();
 		findview();
 		setListener();

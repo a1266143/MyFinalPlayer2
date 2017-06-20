@@ -3,11 +3,9 @@ package com.example.application;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.example.service.MainService;
-import com.example.service.MainService.MyBinder;
-import com.example.utils.Utils;
+import com.example.service.MyBinder;
 
 import android.app.Application;
-import android.app.Service;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;

@@ -5,8 +5,14 @@
     android:background="#fff"
      >
 
+    <FrameLayout
+        android:id="@+id/fragment_online_category_more_fmStateBar"
+        android:layout_width="match_parent" android:layout_height="24dp"
+    android:background="#000"></FrameLayout>
+
     <RelativeLayout
         android:id="@+id/fragment_online_category_more_re"
+        android:layout_below="@id/fragment_online_category_more_fmStateBar"
         style="@style/titlebar" >
 
 

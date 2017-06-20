@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.graphics.Bitmap;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.text.TextUtils;
@@ -14,12 +13,14 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
-import com.example.bean.CurrentOnlineSong;
+import com.example.bean.CurrentPlaySong;
 import com.example.service.MainService;
+import com.example.service.MyBinder;
 import com.example.utils.Utils;
 import com.kogitune.activity_transition.ActivityTransition;
 
@@ -33,10 +34,8 @@ public class PlayActivity extends Activity {
     public static String SONG_IMAGE = "";
 
     private ServiceConnection conn;
-    private MainService.MyBinder myBinder;
-    private MediaPlayer player;
+    private MyBinder myBinder;
     private boolean isLocalMusic;
-    private CurrentOnlineSong mCurrentOnlineSong;
 
     @BindView(R.id.activity_play_ivHead)
     ImageView headImageView;
@@ -46,9 +45,13 @@ public class PlayActivity extends Activity {
     ImageView backgroundImage;
     @BindView(R.id.activity_play_back)
     ImageButton backBtn;
+    @BindView(R.id.activity_play_songName)
+    TextView tv_songName;
+    @BindView(R.id.activity_play_author)
+    TextView tv_author;
 
     @OnClick(R.id.activity_play_back)
-    void back(){
+    void back() {
         finish();
     }
 
@@ -63,9 +66,9 @@ public class PlayActivity extends Activity {
 
     private void init(Bundle savedInstanceState) {
         ButterKnife.bind(this);
-        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) parentRelativeLayout.getLayoutParams();
+        /*FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) parentRelativeLayout.getLayoutParams();
         params.topMargin = Utils.getStatusBarHeight();
-        parentRelativeLayout.setLayoutParams(params);
+        parentRelativeLayout.setLayoutParams(params);*/
         ActivityTransition.with(getIntent()).to(findViewById(R.id.activity_play_ivHead)).start(savedInstanceState);
         if (!TextUtils.isEmpty(PlayActivity.SONG_IMAGE))
             Glide.with(PlayActivity.this).load(PlayActivity.SONG_IMAGE).asBitmap().into(new SimpleTarget<Bitmap>() {
@@ -100,17 +103,20 @@ public class PlayActivity extends Activity {
              */
             private void init(IBinder ibinder) {
                 //获取从service传过来的binder对象
-                myBinder = (MainService.MyBinder) ibinder;
+                myBinder = (MyBinder) ibinder;
                 //song = myBinder.getCurrentSong();
-                player = myBinder.getPlayer();
-                isLocalMusic = myBinder.getIsLocalMusic();
+                //player = myBinder.getService().getPlayer();
+                isLocalMusic = myBinder.getService().getIsLocalMusic();
                 if (isLocalMusic) {
                     //localMusicList = myBinder.getLocalMusicList();
                 } else {
                     // onlineMusicList = myBinder.getOnlineMusicList();
-                    mCurrentOnlineSong = myBinder.getCurrentOnlineSong();
+                    //mCurrentOnlineSong = myBinder.getService().getCurrentOnlineSong();
                     //Glide.with(PlayActivity.this).load(mCurrentOnlineSong.getSongPicRadio()).into(headImageView);
                 }
+                CurrentPlaySong currentPlaySong = myBinder.getService().getCurrentSong();
+                tv_songName.setText(currentPlaySong.getSongName());
+                tv_author.setText(currentPlaySong.getArtistName());
             }
         };
         // 绑定服务

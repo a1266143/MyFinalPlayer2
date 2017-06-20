@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.Activity.PlayActivity">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context="com.example.Activity.PlayActivity">
+
+    <FrameLayout
+        android:id="@+id/activity_play_fmStateBar"
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        android:background="#50000000"/>
 
     <!-- 背景图片 -->
     <ImageView
@@ -13,31 +19,33 @@
         android:layout_gravity="center"
         android:adjustViewBounds="true"
         android:scaleType="fitXY"
-        />
+    />
 
     <!-- 主布局 -->
     <RelativeLayout
         android:id="@+id/activity_play_re"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        >
+        android:layout_below="@id/activity_play_fmStateBar"
+    >
 
         <!-- titlebar -->
         <RelativeLayout
             android:id="@+id/activity_play_title"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            >
+            android:background="#50000000"
+        >
 
             <!-- 返回按键 -->
             <ImageButton
                 android:id="@+id/activity_play_back"
                 android:layout_width="48dp"
                 android:layout_height="match_parent"
+                android:background="@android:color/transparent"
                 android:padding="10dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/back"
-                android:background="@android:color/transparent"/>
+                android:src="@drawable/back"/>
 
             <!-- 歌手和歌名的布局 -->
             <LinearLayout
@@ -51,23 +59,25 @@
                     android:id="@+id/activity_play_songName"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
-                    android:textSize="16sp"
-                    android:gravity="center"
                     android:layout_weight="1"
+                    android:gravity="center"
                     android:maxLines="1"
                     android:text="歌名"
-                    />
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                />
 
                 <!-- 歌手 -->
                 <TextView
                     android:id="@+id/activity_play_author"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
-                    android:gravity="center"
                     android:layout_weight="1"
+                    android:gravity="center"
                     android:maxLines="1"
                     android:text="歌手"
-                    />
+                    android:textColor="@android:color/white"
+                />
             </LinearLayout>
 
 
@@ -82,16 +92,14 @@
             android:layout_alignParentBottom="true">
 
 
-            </RelativeLayout>
+        </RelativeLayout>
 
         <!-- 中部 -->
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/activity_play_title"
-            android:layout_above="@id/activity_play_bottombar">
-
-
+            android:layout_above="@id/activity_play_bottombar"
+            android:layout_below="@id/activity_play_title">
 
 
             <!-- 真实图片 -->
@@ -100,7 +108,7 @@
                 android:layout_height="150dp"
                 android:layout_gravity="center"
                 android:scaleType="fitCenter"
-                />
+            />
 
 
         </FrameLayout>
@@ -110,8 +118,9 @@
 
     <ImageView
         android:id="@+id/activity_play_ivHead"
-        android:layout_width="200dp" android:layout_height="200dp"
-        android:layout_gravity="center"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_centerInParent="true"
     />
 
-</FrameLayout>
+</RelativeLayout>

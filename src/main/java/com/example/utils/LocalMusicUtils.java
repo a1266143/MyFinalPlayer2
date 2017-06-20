@@ -43,7 +43,7 @@ public class LocalMusicUtils {
 	public ArrayList<LocalMusic> getLocalMusicArr(Context context){
 		if(localMusicList!=null)
 			localMusicList.clear();
-		localMusicList = new ArrayList<LocalMusic>();
+		localMusicList = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(URI, null, null, null, null);
 		while(cursor.moveToNext()){
 			LocalMusic localMusic = new LocalMusic();

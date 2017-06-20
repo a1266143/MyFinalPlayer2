@@ -1,10 +1,12 @@
 package com.example.bean;
 
+import java.io.Serializable;
+
 /**
  * 存储歌手的类
  * @author 李晓军
  */
-public class Singer {
+public class Singer implements Serializable{
 	//歌手名称
 	private String name;
 	//根据此参数获得歌手的歌曲

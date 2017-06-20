@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#ffffff"
-    android:orientation="vertical" >
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#ffffff"
+                android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/fragment_search_fmStateBar"
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        android:background="#000000"/>
+
 
     <RelativeLayout
         android:id="@+id/fragment_search_titlebar"
-        style="@style/titlebar" >
+        android:layout_below="@id/fragment_search_fmStateBar"
+        style="@style/titlebar">
 
         <ImageButton
             android:id="@+id/fragment_search_imagebutton"
@@ -19,7 +27,7 @@
             android:padding="15dp"
             android:scaleType="fitCenter"
             android:src="@drawable/searchicon"
-            tools:ignore="ContentDescription" />
+            tools:ignore="ContentDescription"/>
 
         <ImageButton
             android:id="@+id/fragment_search_back"
@@ -30,19 +38,18 @@
             android:padding="15dp"
             android:scaleType="fitCenter"
             android:src="@drawable/back"
-            tools:ignore="ContentDescription" />
+            tools:ignore="ContentDescription"/>
 
         <EditText
             android:id="@+id/fragment_search_edittext"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:singleLine="true"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@id/fragment_search_imagebutton"
             android:layout_toRightOf="@id/fragment_search_back"
-            android:hint="@string/searchhint" />
+            android:hint="@string/searchhint"
+            android:singleLine="true"/>
     </RelativeLayout>
-
 
 
     <ListView
@@ -58,6 +65,6 @@
         android:layout_below="@id/fragment_search_titlebar"
         android:scaleType="fitXY"
         android:src="@drawable/shadow"
-        tools:ignore="ContentDescription" />
+        tools:ignore="ContentDescription"/>
 
 </RelativeLayout>

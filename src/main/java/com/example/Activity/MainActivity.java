@@ -25,7 +25,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.adapter.FragmentLocalListAdapter.MenuClick;
 import com.example.adapter.MyFragmentPagerAdapter;
-import com.example.bean.CurrentOnlineSong;
 import com.example.bean.CurrentPlaySong;
 import com.example.bean.LocalMusic;
 import com.example.bean.Song;
@@ -36,6 +35,7 @@ import com.example.fragment.Fragment_Online;
 import com.example.fragment.Fragment_Search;
 import com.example.listener.MyPageChangeListener;
 import com.example.service.MainService;
+import com.example.service.MyBinder;
 import com.example.utils.Utils;
 import com.kogitune.activity_transition.ActivityTransitionLauncher;
 
@@ -50,8 +50,9 @@ public class MainActivity extends BaseActivity implements OnClickListener,MenuCl
 
 	private ServiceConnection conn;
 
+	private MainService mMainService;
 	//binder
-	private MainService.MyBinder myBinder;
+	private MyBinder myBinder;
 
 	public static final String BACKSTACK = "MyBackStack";
 
@@ -67,7 +68,7 @@ public class MainActivity extends BaseActivity implements OnClickListener,MenuCl
 
 	private ArrayList<Song> onlineMusicList;
 
-	private CurrentOnlineSong mCurrentOnlineSong;
+	private CurrentPlaySong mCurrentOnlineSong;
 
 	/**
 	 * 广播接收器，负责接收从Service传递过来的值
@@ -82,9 +83,9 @@ public class MainActivity extends BaseActivity implements OnClickListener,MenuCl
 			isLocalMusic = bundle.getBoolean("isLocalMusic");
 			tv_title.setText(title);
 			tv_author.setText(author);
-			playBtn.setImageResource(R.drawable.pause);
+			playBtn.setImageResource(mMainService.getPlayer().isPlaying()?R.drawable.pause:R.drawable.playbtn);
 			if(!isLocalMusic){
-				mCurrentOnlineSong = (CurrentOnlineSong) bundle.getSerializable("currentOnlineSong");
+				mCurrentOnlineSong = (CurrentPlaySong) bundle.getSerializable("currentOnlineSong");
 				Glide.with(MainActivity.this).load(mCurrentOnlineSong.getSongPicRadio()).into(mHeadImage);
                 PlayActivity.SONG_IMAGE = mCurrentOnlineSong.getSongPicRadio();
 			}else{
@@ -130,7 +131,7 @@ public class MainActivity extends BaseActivity implements OnClickListener,MenuCl
 			@Override
 			public void onServiceConnected(ComponentName arg0, IBinder ibinder) {
 				init(ibinder);
-				setState(song.getSongName(),song.getAuthor(),player);
+				setState(song.getSongName(),song.getArtistName(),player);
 			}
 
 			/**
@@ -139,15 +140,16 @@ public class MainActivity extends BaseActivity implements OnClickListener,MenuCl
              */
 			private void init(IBinder ibinder){
 				//获取从service传过来的binder对象
-				myBinder = (MainService.MyBinder) ibinder;
-				song = myBinder.getCurrentSong();
-				player = myBinder.getPlayer();
-				isLocalMusic = myBinder.getIsLocalMusic();
+				myBinder = (MyBinder) ibinder;
+				mMainService = myBinder.getService();
+				song = myBinder.getService().getCurrentSong();
+				player = myBinder.getService().getPlayer();
+				isLocalMusic = myBinder.getService().getIsLocalMusic();
 				if(isLocalMusic){
-					localMusicList = myBinder.getLocalMusicList();
+					localMusicList = myBinder.getService().getLocalMusicList();
 				}else{
-					onlineMusicList = myBinder.getOnlineMusicList();
-					mCurrentOnlineSong = myBinder.getCurrentOnlineSong();
+					onlineMusicList = myBinder.getService().getOnlineMusicList();
+					mCurrentOnlineSong = myBinder.getService().getCurrentOnlineSong();
 				}
 			}
 		};
@@ -160,7 +162,7 @@ public class MainActivity extends BaseActivity implements OnClickListener,MenuCl
 	 * 主要是给Fragment，不需要让Fragment再绑定一次
 	 * @return
      */
-	public MainService.MyBinder getMyBinder(){
+	public MyBinder getMyBinder(){
 		return myBinder;
 	}
 
@@ -275,6 +277,7 @@ public class MainActivity extends BaseActivity implements OnClickListener,MenuCl
 			player.start();
 			playBtn.setImageResource(R.drawable.pause);
 		}
+		mMainService.changeNotification();
 	}
 	
 	

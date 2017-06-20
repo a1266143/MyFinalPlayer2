@@ -1,16 +1,22 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows = "true"
-    tools:context=".MainActivity" >
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".MainActivity">
+
+    <FrameLayout
+        android:id="@+id/activity_main_fmStatusBar"
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        android:background="@android:color/black"/>
 
     <!-- titlebar标题栏 -->
 
     <RelativeLayout
         android:id="@+id/activity_main_titlebar_re"
-        style="@style/titlebar" >
-        
+        android:layout_below="@id/activity_main_fmStatusBar"
+        style="@style/titlebar">
+
         <ImageButton
             android:id="@+id/activity_main_searchbtn"
             android:layout_width="58dp"
@@ -20,13 +26,13 @@
             android:padding="15dp"
             android:scaleType="fitCenter"
             android:src="@drawable/searchicon"
-            tools:ignore="ContentDescription" />
+            tools:ignore="ContentDescription"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <!-- 本地音乐 -->
 
@@ -34,7 +40,7 @@
                 android:id="@+id/activity_main_localmusicbtn"
                 style="@style/titlebarbutton"
                 android:src="@drawable/localmusic_selected"
-                tools:ignore="ContentDescription" />
+                tools:ignore="ContentDescription"/>
 
             <!-- 网络音乐 -->
 
@@ -42,10 +48,10 @@
                 android:id="@+id/activity_main_onlinemusicbtn"
                 style="@style/titlebarbutton"
                 android:src="@drawable/onlinemusic"
-                tools:ignore="ContentDescription" />
+                tools:ignore="ContentDescription"/>
 
         </LinearLayout>
-        
+
     </RelativeLayout>
 
     <!-- bottombar底部播放栏 -->
@@ -55,7 +61,7 @@
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_alignParentBottom="true"
-        android:background="#ffffff" >
+        android:background="#ffffff">
 
         <!-- 下一首按钮 -->
 
@@ -67,7 +73,7 @@
             android:layout_marginRight="-3dp"
             android:padding="13dp"
             android:src="@drawable/nextsong"
-            tools:ignore="ContentDescription" />
+            tools:ignore="ContentDescription"/>
 
         <!-- 播放按钮 -->
 
@@ -78,7 +84,7 @@
             android:layout_toLeftOf="@id/activity_main_nextsong"
             android:padding="10dp"
             android:src="@drawable/playbtn"
-            tools:ignore="ContentDescription" />
+            tools:ignore="ContentDescription"/>
 
         <!-- list列表按钮 -->
 
@@ -88,7 +94,7 @@
             android:layout_toLeftOf="@id/activity_main_playbtn"
             android:padding="10dp"
             android:src="@drawable/songlist"
-            tools:ignore="ContentDescription" />
+            tools:ignore="ContentDescription"/>
 
         <!-- 歌手头像 -->
 
@@ -101,32 +107,32 @@
             android:padding="4dp"
             android:scaleType="fitCenter"
             android:src="@drawable/headimage"
-            tools:ignore="ContentDescription" />
+            tools:ignore="ContentDescription"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_toLeftOf="@id/activity_main_listbtn"
             android:layout_toRightOf="@id/activity_main_headimage"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <!-- 歌名 -->
             <TextView
                 android:id="@+id/activity_main_songname"
                 style="@style/bottombar_textview"
-                android:textSize="18sp"
-                android:textColor="#000"
                 android:singleLine="true"
-                android:text="@string/songname" />
+                android:text="@string/songname"
+                android:textColor="#000"
+                android:textSize="18sp"/>
 
-			<!-- 歌手名 -->
+            <!-- 歌手名 -->
             <TextView
                 android:id="@+id/activity_main_authorname"
                 style="@style/bottombar_textview"
-                android:textColor="#999"
-                android:textSize="16sp"
                 android:singleLine="true"
-                android:text="@string/author" />
+                android:text="@string/author"
+                android:textColor="#999"
+                android:textSize="16sp"/>
         </LinearLayout>
     </RelativeLayout>
 
@@ -135,8 +141,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/activity_main_bottombar_re"
-        android:layout_below="@id/activity_main_titlebar_re" />
-    
+        android:layout_below="@id/activity_main_titlebar_re"/>
+
     <!-- titlebar阴影 -->
 
     <ImageView
@@ -145,29 +151,30 @@
         android:layout_below="@id/activity_main_titlebar_re"
         android:scaleType="fitXY"
         android:src="@drawable/shadow"
-        tools:ignore="ContentDescription" />
-    
+        tools:ignore="ContentDescription"/>
+
     <!-- 动态调用Fragment布局 -->
-    <FrameLayout 
+    <FrameLayout
         android:id="@+id/activity_main_frameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/activity_main_bottombar_re"/>
-    
+
     <!-- 菜单布局 -->
-    <FrameLayout 
+    <FrameLayout
         android:id="@+id/activity_main_frameLayout2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/activity_main_fmStatusBar"
         android:layout_above="@id/activity_main_bottombar_re"
-        />
-    
+    />
+
     <!-- 进度条 -->
-    <ProgressBar 
+    <ProgressBar
+        style="@android:style/Widget.ProgressBar.Horizontal"
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:layout_above="@id/activity_main_bottombar_re"
-        style="@android:style/Widget.ProgressBar.Horizontal"/>
-    
+        android:layout_above="@id/activity_main_bottombar_re"/>
+
 
 </RelativeLayout>

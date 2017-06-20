@@ -1,20 +1,17 @@
 package com.example.service;
 
-import android.app.Notification;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
-import android.os.Binder;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.support.annotation.RequiresApi;
-import android.support.v4.app.NotificationCompat;
+import android.support.v7.app.NotificationCompat;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.RemoteViews;
 
@@ -23,12 +20,10 @@ import com.android.volley.VolleyError;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
-import com.example.Activity.MainActivity;
 import com.example.Activity.R;
 import com.example.Dagger.Component.DaggerServiceComponent;
 import com.example.Dagger.Module.ServiceModule;
 import com.example.application.MyApplication;
-import com.example.bean.CurrentOnlineSong;
 import com.example.bean.CurrentPlaySong;
 import com.example.bean.LocalMusic;
 import com.example.bean.Song;
@@ -59,79 +54,68 @@ public class MainService extends Service {
     @Inject
     VolleyUtils volleyUtils;
     @Inject
-    Notification.Builder builder;
+    NotificationCompat.Builder builder;
     @Inject
     RemoteViews mRemoteViews;
-
+    @Inject
     MyBinder binder;
+    @Inject
+    @Named("nextPendingIntent")
+    PendingIntent nextPendingIntent;
+    @Inject
+    @Named("playOrPause")
+    PendingIntent playOrPausePendingIntent;
+    @Inject
+    @Named("close")
+    PendingIntent closePendingIntent;
+
     private boolean isLocalMusicList = true;
     private int position;
-    private CurrentOnlineSong currentOnlineSong;
     private CurrentPlaySong mCurrentPlaySong;
-    //播放模式旗标
-    private static final int PLAYLOOP = 1;
-    private static final int SHUFFLE = 2;
-    private static final int SINGLELOOP = 3;
-    //播放模式，默认循环模式
-    private int currentPlayModel = PLAYLOOP;
+    //通知栏TAG
+    private static int TAG_NOTIFICATION= 1;
+
+    class CloseBroadCastReceiver extends BroadcastReceiver{
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            stopForeground(true);
+            mediaPlayer.pause();
+        }
+    }
+
+    class NextBroadCastReceiver extends BroadcastReceiver{
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            playNextSong();
+        }
+    }
+
+    class PlayOrPauseBroadCastReceiver extends BroadcastReceiver{
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if(mediaPlayer.isPlaying())
+                mediaPlayer.pause();
+            else
+                mediaPlayer.start();
+            changeNotification();
+            sendBroadCastToUI();
+        }
+    }
 
     @Override
     public void onCreate() {
         super.onCreate();
-        binder = new MyBinder();
-        DaggerServiceComponent.builder().serviceModule(new ServiceModule((MyApplication) getApplication(), getApplicationContext())).build().inject(this);
+        DaggerServiceComponent.builder().serviceModule(new ServiceModule((MyApplication) getApplication(), this)).build().inject(this);
+        registerReceiver(new NextBroadCastReceiver(),new IntentFilter(MainService.ACTION_NEXT));
+        registerReceiver(new PlayOrPauseBroadCastReceiver(),new IntentFilter(MainService.ACTION_PLAYORPAUSE));
+        registerReceiver(new CloseBroadCastReceiver(),new IntentFilter(MainService.ACTION_CLOSE));
     }
 
     @Override
     public IBinder onBind(Intent intent) {
         return binder;
-    }
-
-    /**
-     * 客户端与此服务的接口
-     */
-    public class MyBinder extends Binder {
-
-        //将此service实例传给客户端
-        public MainService getService() {
-            return MainService.this;
-        }
-
-        public CurrentPlaySong getCurrentSong() {
-            if (mCurrentPlaySong != null)
-                return mCurrentPlaySong;
-            else {
-                mCurrentPlaySong = new CurrentPlaySong("", "");
-                return mCurrentPlaySong;
-            }
-        }
-
-        //传递给客户端MediaPlayer对象
-        public MediaPlayer getPlayer() {
-            return mediaPlayer;
-        }
-
-        //获得当前播放的列表类型
-        public boolean getIsLocalMusic() {
-            return isLocalMusicList;
-        }
-
-        //获得网络音乐列表
-        public ArrayList<Song> getOnlineMusicList() {
-            return onlineMusicList;
-        }
-
-        //获得本地音乐列表
-        public ArrayList<LocalMusic> getLocalMusicList() {
-            return localMusicList;
-        }
-
-        //返回当前播放的网络歌曲
-        public CurrentOnlineSong getCurrentOnlineSong() {
-            if (currentOnlineSong != null)
-                return currentOnlineSong;
-            return null;
-        }
     }
 
     @Override
@@ -147,7 +131,7 @@ public class MainService extends Service {
             onlineMusicList = (ArrayList<Song>) bundle.getSerializable("List");
             getOnlineMusicInfo(onlineMusicList.get(position).getSongid());
         }
-        startForgroundService();
+        changeNotification();
         setListener();
         return Service.START_REDELIVER_INTENT;
     }
@@ -160,7 +144,6 @@ public class MainService extends Service {
                 playNextSong();
             }
         });
-
         //设置缓冲监听器
         /*mediaPlayer.setOnBufferingUpdateListener(new MediaPlayer.OnBufferingUpdateListener() {
             @Override
@@ -168,21 +151,6 @@ public class MainService extends Service {
 
 			}
 		});*/
-    }
-
-
-    /**
-     * 开启前台Service
-     */
-    private void startForgroundService() {
-        mRemoteViews.setImageViewResource(R.id.notification_layout_ivHeadImage, R.drawable.ic_launcher);
-        mRemoteViews.setTextViewText(R.id.notification_layout_tvSong,onlineMusicList.get(position).getTitle());
-        mRemoteViews.setTextViewText(R.id.notification_layout_tvSinger, onlineMusicList.get(position).getAuthor());
-        builder.setContent(mRemoteViews);
-        Notification notification = builder.build();
-        notification.flags = Notification.FLAG_AUTO_CANCEL;
-        startForeground(1,notification);
-
     }
 
     /**
@@ -194,7 +162,7 @@ public class MainService extends Service {
             mediaPlayer.setDataSource(localMusicList.get(position).getPath());
             mediaPlayer.prepare();
             mediaPlayer.start();
-            setCurrentPlaySong(localMusicList.get(position).getSongName(), localMusicList.get(position).getAuthor());
+            setCurrentPlaySong(localMusicList.get(position).getSongName(), localMusicList.get(position).getAuthor(),"","","");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -232,6 +200,7 @@ public class MainService extends Service {
     private void getOnlineMusicInfo(String songid) {
         mediaPlayer.reset();
         String requestURL = URL + songid;
+        volleyUtils.cancleRequest(getApplicationContext());
         volleyUtils.newRequest(requestURL, new VolleyUtils.OnResponseListener() {
             @Override
             public void response(JSONObject jsonObject) {
@@ -239,12 +208,10 @@ public class MainService extends Service {
                     JSONObject object = jsonObject.getJSONObject("data");
                     JSONArray array = object.getJSONArray("songList");
                     JSONObject object1 = array.getJSONObject(0);
-                    currentOnlineSong = new CurrentOnlineSong(object1.optString("songName"), object1.optString("artistName"), object1.optString("songPicRadio"), object1.optString("lrcLink"),
+                    setCurrentPlaySong(object1.optString("songName"), object1.optString("artistName"), object1.optString("songPicRadio"), object1.optString("lrcLink"),
                             object1.getString("songLink"));
-
                     //播放网络音乐
-                    playOnlineMusic(currentOnlineSong.getSongLink());
-                    sendBroadCastToUI();
+                    playOnlineMusic(mCurrentPlaySong.getSongLink());
                 } catch (JSONException e) {
                     e.printStackTrace();
                     return;
@@ -269,24 +236,25 @@ public class MainService extends Service {
             mediaPlayer.setDataSource(url);
             //异步准备，防止阻塞页面
             mediaPlayer.prepareAsync();
-            setCurrentPlaySong(onlineMusicList.get(position).getTitle(), onlineMusicList.get(position).getAuthor());
             mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                 @Override
                 public void onPrepared(MediaPlayer mp) {
                     mp.start();
+                    sendBroadCastToUI();
+                    mRemoteViews.setImageViewResource(R.id.notification_layout_btnPlayOrPause,mediaPlayer.isPlaying()?R.drawable.pause:R.drawable.playbtn);
+                    builder.setContent(mRemoteViews);
+                    startForeground(TAG_NOTIFICATION,builder.build());
                 }
             });
         } catch (IOException e) {
             e.printStackTrace();
             Log.e("IOException", "网络出现问题");
-            return;
         }
     }
 
-    private void setCurrentPlaySong(String songName, String author) {
-        mCurrentPlaySong = new CurrentPlaySong(songName, author);
+    private void setCurrentPlaySong(String songName, String author,String songPicRadio,String lrcLink,String songLink) {
+        mCurrentPlaySong = new CurrentPlaySong(songName, author,songPicRadio,lrcLink,songLink);
     }
-
 
     /**
      * 发送广播给前台,将歌名和歌手传递给前台，通知其修改界面
@@ -294,30 +262,32 @@ public class MainService extends Service {
     private void sendBroadCastToUI() {
         Intent intent = new Intent();
         Bundle b = new Bundle();
-        if (isLocalMusicList) {
-            b.putString("title", localMusicList.get(position).getSongName());
-            b.putString("author", localMusicList.get(position).getAuthor());
-            b.putBoolean("isLocalMusic", true);
-        } else {
-            b.putString("title", onlineMusicList.get(position).getTitle());
-            b.putString("author", onlineMusicList.get(position).getAuthor());
-            b.putBoolean("isLocalMusic", false);
-            b.putSerializable("currentOnlineSong", currentOnlineSong);
-
-            changeNotification();
-
-        }
+        b.putString("title",isLocalMusicList?localMusicList.get(position).getSongName():onlineMusicList.get(position).getTitle());
+        b.putString("author",isLocalMusicList?localMusicList.get(position).getAuthor():onlineMusicList.get(position).getAuthor());
+        b.putBoolean("isLocalMusic",isLocalMusicList?true:false);
+        b.putSerializable("currentOnlineSong",mCurrentPlaySong);
         intent.putExtras(b);
         intent.setAction(MainService.ACTION_CHANGEUI);
         sendBroadcast(intent);
+        changeNotification();
     }
 
-    private void changeNotification(){
-        Glide.with(MainService.this).load(currentOnlineSong.getSongPicRadio()).asBitmap().into(new SimpleTarget<Bitmap>() {
+    public void changeNotification(){
+        if(isLocalMusicList)
+            mRemoteViews.setImageViewResource(R.id.notification_layout_ivHeadImage,R.drawable.cd);
+        mRemoteViews.setTextViewText(R.id.notification_layout_tvSong,isLocalMusicList?localMusicList.get(position).getSongName():onlineMusicList.get(position).getTitle());
+        mRemoteViews.setTextViewText(R.id.notification_layout_tvSinger,isLocalMusicList?localMusicList.get(position).getAuthor():onlineMusicList.get(position).getAuthor());
+        mRemoteViews.setImageViewResource(R.id.notification_layout_btnPlayOrPause,mediaPlayer.isPlaying()?R.drawable.pause:R.drawable.playbtn);
+        mRemoteViews.setOnClickPendingIntent(R.id.notification_layout_btnNext,nextPendingIntent);
+        mRemoteViews.setOnClickPendingIntent(R.id.notification_layout_btnPlayOrPause,playOrPausePendingIntent);
+        mRemoteViews.setOnClickPendingIntent(R.id.notification_layout_btnClose,closePendingIntent);
+        builder.setContent(mRemoteViews);
+        startForeground(TAG_NOTIFICATION,builder.build());
+        if(!TextUtils.isEmpty(mCurrentPlaySong.getSongPicRadio()))
+        Glide.with(MainService.this).load(mCurrentPlaySong.getSongPicRadio()).asBitmap().into(new SimpleTarget<Bitmap>() {
             @Override
             public void onResourceReady(Bitmap bitmap, GlideAnimation<? super Bitmap> glideAnimation) {
                 mRemoteViews.setImageViewBitmap(R.id.notification_layout_ivHeadImage,bitmap);
-                builder.setTicker(currentOnlineSong.getSongName());
                 builder.setContent(mRemoteViews);
                 startForeground(1,builder.build());
             }
@@ -350,8 +320,36 @@ public class MainService extends Service {
     }
 
     public static final String ACTION_CHANGEUI = "changeUI";
+    public static final String ACTION_NEXT = "next";
+    public static final String ACTION_PLAYORPAUSE = "playorpause";
+    public static final String ACTION_CLOSE = "close";
     //具体页面的url
     public static final String URL = "http://music.baidu.com/data/music/links?songIds=";
 
+    public CurrentPlaySong getCurrentSong() {
+        if (mCurrentPlaySong != null)
+            return mCurrentPlaySong;
+        else {
+            mCurrentPlaySong = new CurrentPlaySong("", "","","","");
+            return mCurrentPlaySong;
+        }
+    }
+
+    //传递给客户端MediaPlayer对象
+    public MediaPlayer getPlayer() {
+        return mediaPlayer;
+    }
+
+    //获得当前播放的列表类型
+    public boolean getIsLocalMusic() {
+        return isLocalMusicList;
+    }
+
+    //返回当前播放的网络歌曲
+    public CurrentPlaySong getCurrentOnlineSong() {
+        if (mCurrentPlaySong != null)
+            return mCurrentPlaySong;
+        return null;
+    }
 
 }

@@ -1,14 +1,28 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#ffffff"
-    tools:context="com.example.fragment.Fragment_Singer">
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#ffffff"
+                tools:context="com.example.fragment.Fragment_Singer">
+
+    <!--<FrameLayout
+        android:id="@+id/fragment_singer_fmStateBar"
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        android:background="#000000" />-->
+
+    <!-- 歌手ListView -->
+    <ListView
+        android:id="@+id/fragment_singer_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+    />
 
     <!-- titlebar标题栏 -->
     <RelativeLayout
         android:id="@+id/fragment_singer_titlebar"
-        style="@style/titlebar" >
+        android:layout_marginTop="24dp"
+        style="@style/titlebar">
 
         <ImageButton
             android:id="@+id/fragment_singer_returnbtn"
@@ -19,32 +33,27 @@
             android:padding="17dp"
             android:scaleType="fitCenter"
             android:src="@drawable/back"
-            />
+        />
 
         <TextView
             android:id="@+id/fragment_singer_tvname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:textSize="18sp"
-            android:text="歌手名称"/>
+            android:textColor="@android:color/white"
+            android:text="歌手名称"
+            android:textSize="18sp"/>
 
     </RelativeLayout>
-
-    <!-- 歌手ListView -->
-    <ListView
-        android:id="@+id/fragment_singer_listview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/fragment_singer_titlebar"/>
 
     <!-- titlebar阴影 -->
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="3dp"
+        android:visibility="gone"
         android:layout_below="@id/fragment_singer_titlebar"
         android:scaleType="fitXY"
         android:src="@drawable/shadow"
-        tools:ignore="ContentDescription" />
+        tools:ignore="ContentDescription"/>
 
 </RelativeLayout>
